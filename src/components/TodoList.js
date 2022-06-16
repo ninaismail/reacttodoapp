@@ -1,9 +1,22 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
 import TodoForm from './TodoForm'
 function TodoList() {
+  const [todos, setTodos] = useState([]);
+
+  const addTodo = todo => {
+    if (!todo.text || /^\s*$/.test(todo.text)) {
+      return;
+    }
+
+    const newTodos = [todo, ...todos];
+
+    setTodos(newTodos);
+    console.log(...todos);
+  };
+
   return (
-    <div class="Todocontainer">
-       <TodoForm/>
+    <div className="Todocontainer">
+       <TodoForm onSubmit={addTodo}/>
     </div>
   )
 }

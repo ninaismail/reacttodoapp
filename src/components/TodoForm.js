@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import { useState } from "react";
 function TodoForm(props) {
     const [input, setInput] = useState('');
     const handleChange = e => {
@@ -15,16 +15,16 @@ function TodoForm(props) {
     };
   
   return ( 
-    <div class='Todocontainer'>
- <h6 class="mb-3">Awesome Todo List</h6>
-<form onSubmit={handleSubmit} class="d-flex justify-content-center align-items-center">
-  <div class="form-outline flex-fill">
-    <input type="text" class="form-control form-control-lg" placeholder='What do you need to do today?' 
+    <div className='Todocontainer'>
+ <h6 className="mb-3">Awesome Todo List</h6>
+<form  className="d-flex justify-content-center align-items-center">
+  <div className="form-outline flex-fill">
+    <input type="text" className="form-control form-control-lg" placeholder='What do you need to do today?' 
     name='text'
     value={input}
     onChange={handleChange}/>
   </div>
-  <button type="submit" class="btn btn-primary btn-lg ms-2">Add</button>
+  <button type="submit" className="btn btn-primary btn-lg ms-2"  onClick={handleSubmit} >Add</button>
 </form>
     </div>
   )
