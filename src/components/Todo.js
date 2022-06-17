@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import TodoForm from './TodoForm';
-import { AiOutlineClose, FiEdit2 } from 'react-icons/ri';
-
+import { AiOutlineClose} from 'react-icons/ri';
+import { AiFillEdit } from 'react-icons/ai';
 const Todo = ({ todos, completeTodo, removeTodo, updateTodo }) => {
   const [edit, setEdit] = useState({
     id: null,
@@ -32,7 +32,7 @@ const Todo = ({ todos, completeTodo, removeTodo, updateTodo }) => {
             <input class="form-check-input me-2" type="checkbox" value="" aria-label="..." />
             {todo.text}
         </div>
-        <FiEdit2
+        <AiFillEdit
           onClick={() => setEdit({ id: todo.id, value: todo.text })}
           className='edit-icon'
         />
