@@ -1,33 +1,46 @@
-import { useState } from "react";
-function TodoForm(props) {
-    const [input, setInput] = useState('');
-    const handleChange = e => {
-      setInput(e.target.value);
-    };  
-    const handleSubmit = e => {
-      e.preventDefault();
-  
-      props.onSubmit({
-        id: Math.floor(Math.random() * 10000),
-        text: input
-      });
-      setInput('');
-    };
-  
-  return ( 
-    <div className='Todocontainer'>
- <h6 className="mb-3">Awesome Todo List</h6>
-<form  className="d-flex justify-content-center align-items-center">
-  <div className="form-outline flex-fill">
-    <input type="text" className="form-control form-control-lg" placeholder='What do you need to do today?' 
-    name='text'
-    value={input}
-    onChange={handleChange}/>
-  </div>
-  <button type="submit" className="btn btn-primary btn-lg ms-2"  onClick={handleSubmit} >Add</button>
-</form>
-    </div>
-  )
-}
+import React, { useState } from 'react';
+import TodoForm from './TodoForm';
+import { RiCloseCircleLine } from 'react-icons/ri';
+import { TiEdit } from 'react-icons/ti';
 
-export default TodoForm
+const Todo = ({ todos, completeTodo, removeTodo, updateTodo }) => {
+  const [edit, setEdit] = useState({
+    id: null,
+    value: ''
+  });
+
+  const submitUpdate = value => {
+    updateTodo(edit.id, value);
+    setEdit({
+      id: null,
+      value: ''
+    });
+  };
+
+  if (edit.id) {
+    return <TodoForm edit={edit} onSubmit={submitUpdate} />;
+  }
+
+  return todos.map((todo, index) => (
+    <div
+      className={todo.isComplete ? 'todo-row complete' : 'todo-row'}
+      key={index}
+    >
+      <div key={todo.id} onClick={() => completeTodo(todo.id)}>
+        {todo.text}
+      </div>
+      <div className='icons'>
+        <RiCloseCircleLine
+          onClick={() => removeTodo(todo.id)}
+          className='delete-icon'
+        />
+        <TiEdit
+          onClick={() => setEdit({ id: todo.id, value: todo.text })}
+          className='edit-icon'
+        />
+      </div>
+    </div>
+  ));
+};
+
+export default Todo
